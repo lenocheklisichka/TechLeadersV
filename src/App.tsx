@@ -17,8 +17,6 @@ const App: React.FC = () => {
   }, [setDeviceWidth])
 
   useEffect(() => {
-    console.log("TRIGGER");
-
     setDevice();
     window.addEventListener("resize", setDevice);
 
