@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import logo from "./logo.svg";
 
 import useGlobalStyles from "./styles.jss";
 import useStyles from "./App.styles.jss";
 import { Button } from "./ui/Button";
+import { AppStoreProvider, useAppStore } from "./store/AppStore";
+import { Test } from "./components/Test";
 
 const App: React.FC = () => {
   useGlobalStyles();
   const classes = useStyles();
+  const [, { setDeviceWidth }] = useAppStore();
+
+  const setDevice = useCallback(() => {
+    setDeviceWidth(window.innerWidth);
+  }, [setDeviceWidth])
+
+  useEffect(() => {
+    console.log("TRIGGER");
+
+    setDevice();
+    window.addEventListener("resize", setDevice);
+
+    return () => {
+      window.removeEventListener("resize", setDevice);
+    };
+  }, [setDevice]);
 
   return (
     <div className={classes.root}>
@@ -16,6 +34,7 @@ const App: React.FC = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <Test />
         <Button
           variant="contained"
           color="primary"
@@ -30,4 +49,10 @@ const App: React.FC = () => {
   );
 }
 
-export default App;
+export default () => {
+  return (
+    <AppStoreProvider>
+      <App />
+    </AppStoreProvider>
+  )
+};
