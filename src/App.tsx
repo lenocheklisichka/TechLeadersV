@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 
 import useGlobalStyles from "./styles.jss";
 import useStyles from "./App.styles.jss";
+import { Button } from "./ui/Button";
 
 const App: React.FC = () => {
   useGlobalStyles();
@@ -15,14 +16,15 @@ const App: React.FC = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className={classes.link}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            window.open("https://reactjs.org", "_blank");
+          }}
         >
           Learn React
-        </a>
+        </Button>
       </header>
     </div>
   );
