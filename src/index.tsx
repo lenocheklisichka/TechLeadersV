@@ -1,14 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { StyleSheet, Rule } from "jss";
+import { JssProvider, ThemeProvider } from "react-jss";
+import murmurhash from "murmurhash";
+
+import App from "./App";
+import { theme } from "./theme";
+import * as serviceWorker from "./serviceWorker";
+
+const createGenerateId = () => (rule: Rule, sheet?: StyleSheet) => {
+  const prefix = sheet?.options.classNamePrefix;
+
+  if (prefix) {
+    return prefix + "-" + rule.key;
+  }
+  
+  return rule.key + murmurhash.v3(rule.toString());
+};
+const generateId = createGenerateId();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <JssProvider generateId={generateId}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </JssProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
