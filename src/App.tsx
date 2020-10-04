@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, {useEffect, useCallback} from "react";
 import logo from "./logo.svg";
 
 import useGlobalStyles from "./styles.jss";
@@ -6,6 +6,7 @@ import useStyles from "./App.styles.jss";
 import { Button } from "./ui/Button";
 import { AppStoreProvider, useAppStore } from "./store/AppStore";
 import { Test } from "./components/Test";
+import {CheckBox} from "./ui/CheckBox";
 
 const App: React.FC = () => {
   useGlobalStyles();
@@ -25,6 +26,7 @@ const App: React.FC = () => {
     };
   }, [setDevice]);
 
+
   return (
     <div className={classes.root}>
       <header className={classes.header}>
@@ -42,6 +44,7 @@ const App: React.FC = () => {
         >
           Learn React
         </Button>
+        <CheckBox label={'Это checkbox кнопка'} />
       </header>
     </div>
   );
