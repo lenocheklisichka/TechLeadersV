@@ -12,7 +12,7 @@ const createGenerateId = () => (rule: Rule, sheet?: StyleSheet) => {
   const prefix = sheet?.options.classNamePrefix;
 
   if (prefix) {
-    return prefix + "-" + rule.key;
+    return prefix + rule.key;
   }
   
   return rule.key + murmurhash.v3(rule.toString());
