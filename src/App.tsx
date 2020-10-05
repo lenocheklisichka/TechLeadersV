@@ -54,7 +54,7 @@ const App: React.FC = () => {
             </header>
           </div>
         </Route>
-        <Route path="/patient-card">
+        <Route path="/patient-card/:id">
           <PatientCard />
         </Route>
       </Switch>
