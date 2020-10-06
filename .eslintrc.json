@@ -1,0 +1,95 @@
+{
+	"env": {
+		"browser": true,
+		// enable all ECMAScript 6 features except for modules (this automatically sets the ecmaVersion parser option to 6).
+		"es6": true,
+		// adds all ECMAScript 2017 globals and automatically sets the ecmaVersion parser option to 8.
+		"es2017": true,
+		// adds all ECMAScript 2020 globals and automatically sets the ecmaVersion parser option to 11.
+		"es2020": true
+	},
+	"extends": [
+		"plugin:react/recommended",
+		"eslint:recommended",
+		// Базовые правила для TypeScript
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"exclude": "**/node_modules/**/*",
+		"project": "./tsconfig.json",
+		"ecmaVersion": 2019,
+		"sourceType": "module"
+	},
+	"plugins": ["react", "react-hooks", "@typescript-eslint"],
+	"rules": {
+		// разрешить console
+		"no-console": [
+			"error",
+			{
+				"allow": ["warn", "error"]
+			}
+		],
+		"quotes": [
+			"error",
+			"single",
+			{
+				"allowTemplateLiterals": true
+			}
+		],
+		"indent": "off"
+	},
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx"],
+			"rules": {
+				"react-hooks/rules-of-hooks": "error",
+				"react-hooks/exhaustive-deps": "warn",
+				"react/prop-types": "off",
+				"@typescript-eslint/indent": [
+					"error",
+					"tab",
+					{
+						"ignoredNodes": ["ConditionalExpression"],
+						"SwitchCase": 1,
+						"outerIIFEBody": 0,
+						"MemberExpression": 1,
+						"FunctionDeclaration": {
+							"parameters": "first"
+						},
+						"FunctionExpression": {
+							"parameters": "first"
+						},
+						"CallExpression": {
+							"arguments": "first"
+						},
+						"ObjectExpression": 1,
+						"ImportDeclaration": 1,
+						"flatTernaryExpressions": false
+					}
+				],
+				"@typescript-eslint/no-trailing-whitespace": 0,
+				"@typescript-eslint/jsx-alignment": 0,
+				"@typescript-eslint/jsx-self-close": 0,
+				"@typescript-eslint/align": 0,
+				"@typescript-eslint/interface-name-prefix": [
+					"error",
+					{
+						"prefixWithI": "always"
+					}
+				],
+				"@typescript-eslint/camelcase": [
+					"error",
+					{
+						"allow": ["minus_Id", "ru_RU"]
+					}
+				]
+			}
+		}
+	]
+}
