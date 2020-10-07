@@ -6,6 +6,7 @@ import useStyles from "./App.styles.jss";
 import { Button } from "./ui/Button";
 import { AppStoreProvider, useAppStore } from "./store/AppStore";
 import { Test } from "./components/Test";
+import VisitStoryTable from "./components/VisitHistoryTable";
 
 const App: React.FC = () => {
   useGlobalStyles();
@@ -15,6 +16,9 @@ const App: React.FC = () => {
   const setDevice = useCallback(() => {
     setDeviceWidth(window.innerWidth);
   }, [setDeviceWidth])
+ 
+ 
+
 
   useEffect(() => {
     setDevice();
@@ -33,6 +37,7 @@ const App: React.FC = () => {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <Test />
+        <VisitStoryTable />
         <Button
           variant="contained"
           color="primary"
