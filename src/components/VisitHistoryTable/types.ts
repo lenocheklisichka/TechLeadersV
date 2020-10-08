@@ -3,13 +3,15 @@ export type VisitType = {
     number: string,
     url: string
   },
-  date: string,
-  time: string,
+  dateAndTime: {
+    formatedDate: string,
+    formatedTime: string,
+    originalDate: Date,
+  },
   clinic: {
     name: string,
     url: string,
   },
   doctor: string,
-  urlOfVisit: string,
 }
 

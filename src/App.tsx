@@ -1,8 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import logo from "./logo.svg";
 
-import 
-
 import useGlobalStyles from "./styles.jss";
 import useStyles from "./App.styles.jss";
 import { Button } from "./ui/Button";

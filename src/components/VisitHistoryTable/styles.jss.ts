@@ -6,6 +6,12 @@ const styles = (theme: Theme) => ({
   container: {
     width: "100%",
     padding: '20px',
+    backgroundColor: '#ffffff',
+    color: '#212529',
+  },
+
+  title: {
+    fontSize: '1.5rem',
   },
 
   table: {
@@ -20,7 +26,6 @@ const styles = (theme: Theme) => ({
     borderSpacing: '2px',
     width: '100%',
     marginBottom: '1rem',
-    color: '#212529',
     borderCollapse: 'collapse',
     boxSizing: 'border-box',
   },
