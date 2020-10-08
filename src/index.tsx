@@ -7,6 +7,8 @@ import murmurhash from "murmurhash";
 import App from "./App";
 import { theme } from "./theme";
 import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import { } from 'react-router-dom'
 
 const createGenerateId = () => (rule: Rule, sheet?: StyleSheet) => {
   const prefix = sheet?.options.classNamePrefix;
@@ -19,13 +21,17 @@ const createGenerateId = () => (rule: Rule, sheet?: StyleSheet) => {
 };
 const generateId = createGenerateId();
 
+
 ReactDOM.render(
   <React.StrictMode>
-    <JssProvider generateId={generateId}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </JssProvider>
+    <BrowserRouter >
+      <JssProvider generateId={generateId}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </JssProvider>
+    </BrowserRouter>
+    
   </React.StrictMode>,
   document.getElementById("root")
 );

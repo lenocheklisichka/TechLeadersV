@@ -6,6 +6,18 @@ const styles = (theme: Theme) => ({
   container: {
     width: "100%",
     padding: '20px',
+    backgroundColor: '#ffffff',
+    color: '#212529',
+  },
+
+  toMainMenuLink: {
+    position: 'fixed',
+    top: '10px',
+    right: '15px',
+  },
+
+  title: {
+    fontSize: '1.5rem',
   },
 
   table: {
@@ -20,7 +32,6 @@ const styles = (theme: Theme) => ({
     borderSpacing: '2px',
     width: '100%',
     marginBottom: '1rem',
-    color: '#212529',
     borderCollapse: 'collapse',
     boxSizing: 'border-box',
   },
@@ -36,6 +47,10 @@ const styles = (theme: Theme) => ({
     borderBottom: '2px solid #dee2e6',
     display: 'table-cell',    
     padding: '.75rem',
+   },
+
+   sortable: {
+    cursor:'pointer',
    },
    
   tr: {

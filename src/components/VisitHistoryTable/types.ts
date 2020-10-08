@@ -1,15 +1,15 @@
 export type VisitType = {
-  id: {
-    number: string,
-    url: string
-  },
-  date: string,
-  time: string,
+  id: number,
+  dateAndTime: string,
   clinic: {
+    id: number
     name: string,
-    url: string,
   },
-  doctor: string,
-  urlOfVisit: string,
+  doctor: {
+    id: number,
+    firstName: string,
+    middleName: string,
+    lastName: string,
+  },
 }
 
