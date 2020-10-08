@@ -1,6 +1,4 @@
-import React, {useCallback, useState} from "react";
-import clsx from "clsx";
-
+import React from "react";
 import useStyles from "./styles.jss";
 import {CheckBoxProps} from "./types";
 
@@ -11,20 +9,24 @@ export const CheckBox: React.FC<CheckBoxProps> = (
         onChange,
         name,
         label,
+        checked,
+        disabled
     }) => {
-
-
-    const [check, setCheck] = useState(false);
-    const handler = useCallback(() => {
-        setCheck(!check);
-    }, [check]);
 
     const classes = useStyles();
 
     return (
-        <div>
-            <label className={clsx(classes.root, {}, className)}>
-                <input name={name} id={name} type="checkbox" checked={check} onChange={handler}/>
+        <div className={classes.root}>
+            <label className={classes.check}>
+                <input
+                    className={classes.check_input}
+                    name={name}
+                    type="checkbox"
+                    checked={checked}
+                    onChange={onChange}
+                    disabled={disabled}
+                />
+                <span className={classes.check_box}></span>
                 <span>{label}</span>
             </label>
         </div>
