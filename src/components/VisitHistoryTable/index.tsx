@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { VisitType } from './types';
 import useStyles from "./styles.jss";
 import clsx from "clsx";
-import _ from 'lodash';
 import { Button } from '../../ui/Button';
+import { Link } from 'react-router-dom';
+import  orderBy  from 'lodash/orderBy';
+import { DateTime } from 'luxon';
+
+
 
 
 
@@ -11,173 +15,203 @@ const VisitStoryTable = () => {
 
   const visits:Array<VisitType> = [
     {
-      id: {
-        number: '12345679',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2015, 1, 20, 6, 8)),
+      id: generateId(6),
+      dateAndTime: new Date(2015, 1, 20, 6, 8).toISOString(),
       clinic: {
-        name: 'БСПМ',
-        url: './'
+        id: generateId(4),
+        name: 'ВОКБ № 1',
       },
-      doctor: 'Иванов Иван Иванович',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Иван',
+        middleName: 'Петрович',
+        lastName: 'Комаров',
+      }, 
     },
     {
-      id: {
-        number: '234567890',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date()),
+      id: generateId(6),
+      dateAndTime: new Date().toISOString(),
       clinic: {
-        name: 'БСПМ',
-        url: './'
+        id: generateId(4),
+        name: 'БСМП',
       },
-      doctor: 'Комаровский Петр Петрович',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Петр',
+        middleName: 'Иванович',
+        lastName: 'Сидоров',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2020, 9, 6, 12, 10)),
+      id: generateId(6),
+      dateAndTime: new Date(2020, 1, 20, 1, 8).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'Детская областная',
       },
-      doctor: 'Петрова Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Иван',
+        middleName: 'Иванович',
+        lastName: 'Комаровский',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2000, 9, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2019, 1, 20, 6, 4).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'БСМП',
       },
-      doctor: 'Володина Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Петр',
+        middleName: 'Иванович',
+        lastName: 'Васильков',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2020, 0, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2017, 1, 20, 15, 18).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'ВОКБ № 1',
       },
-      doctor: 'Викторова Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Дмитрий',
+        middleName: '',
+        lastName: 'Сенькевич',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2020, 1, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2020, 9, 20, 5, 8).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'Поликлиника № 5',
       },
-      doctor: 'Фикс Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: '',
+        middleName: '',
+        lastName: '',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2013, 9, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2020, 10, 1, 16, 8).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'Инфекционная',
       },
-      doctor: 'Суматина Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Виктор',
+        middleName: 'Викторович',
+        lastName: 'Мазай',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2017, 9, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: '',
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'Поликлиника № 1',
       },
-      doctor: 'Наполеон Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Иван',
+        middleName: 'Иванович',
+        lastName: 'Коромыслов',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2016, 9, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2020, 6, 1, 16, 8).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'Поликлиника № 3',
       },
-      doctor: 'Ватутина Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Зураб',
+        middleName: '',
+        lastName: 'Забойнов',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2020, 9, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2018, 5, 1, 1, 29).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'Поликлиника № 3',
       },
-      doctor: 'Навальная Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Ольга',
+        middleName: 'Сергеевна',
+        lastName: 'Виктюк',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2020, 9, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2010, 5, 1, 1, 29).toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'ВОКБ',
       },
-      doctor: 'Сидорова Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Елена',
+        middleName: 'Ивановна',
+        lastName: 'Сидорова',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2020, 9, 5, 9, 9)),
+      id: generateId(6),
+      dateAndTime: new Date(2019, 4, 1, 8, 29).toISOString(),
       clinic: {
-        name: '№ 9',
-        url: './'
+        id: generateId(4),
+        name: 'ВОКБ № 1',
       },
-      doctor: 'Галкина Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Андрей',
+        middleName: 'Иванович',
+        lastName: 'Юдин',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2018, 9, 6, 10, 9)),
+      id: generateId(6),
+      dateAndTime: new Date().toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'Поликлиника № 3',
       },
-      doctor: 'Путина Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Ирина',
+        middleName: 'Андреевна',
+        lastName: 'Яхонтова',
+      }, 
     },
     {
-      id: {
-        number: '345678912',
-        url: './',
-      },
-      dateAndTime: formatDate(new Date(2019, 9, 6, 12, 9)),
+      id: generateId(6),
+      dateAndTime: new Date().toISOString(),
       clinic: {
-        name: 'ВОДККЦ',
-        url: './'
+        id: generateId(4),
+        name: 'БСМП',
       },
-      doctor: 'Зверева Ольга Николаевна',
+      doctor: {
+        id: generateId(4),
+        firstName: 'Петр',
+        middleName: 'Иванович',
+        lastName: 'Сидоров',
+      }, 
     },
+
+  
   ];
 
 
@@ -189,35 +223,13 @@ const [selectedColumn, setSelectedColumn] = useState('');
 const [itemPerPageCount, setItemPerPageCount] = useState(10);
 
 useEffect(() => {
-  sortBySomeColumn('dateAndTime.originalDate');
+  sortBySomeColumn('dateAndTime');
 }, []);
 
 useEffect(() => {
   createPaginationArray();
   }, [sortedVisits, itemPerPageCount]);
 
-function formatDate (date:Date) {
-  let dd:number|string = date.getDate();
-  if (dd < 10) dd = '0' + dd;
-
-  let mm:number|string = date.getMonth() + 1;
-  if (mm < 10) mm = '0' + mm;
-
-  let yy:number|string = date.getFullYear();
-  if (yy < 10) yy = '0' + yy;
-
-  let hh:number|string = date.getHours();
-  if (hh < 10) hh = '0' + hh;
-
-  let min:number|string = date.getMinutes();
-  if (min < 10) min = '0' + min;
-
-  return {
-    formatedDate: `${dd}.${mm}.${yy}`,
-    formatedTime: `${hh} : ${min}`,
-    originalDate: date
-  }
-}
 
 const createPaginationArray = () => {
   let paginatedData: Array<Array<VisitType> | undefined> = [];
@@ -232,8 +244,17 @@ const createPaginationArray = () => {
   }
 }
 
+function generateId(num:number = 6) {
+    let array = [];
+    for (let i = 0; i < num ; i++) {
+      array.push(Math.floor(Math.random() * Math.floor(10)));
+    }
+    let id = +array.join('');
+    return id;      
+} 
+
 const sortBySomeColumn = (columnName:string) => {
-  let sortData = _.orderBy(visits, [columnName], [dirOfSort])
+  let sortData = orderBy(visits, [columnName], [dirOfSort])
   setSortedVisits(prev => prev = sortData)
   dirOfSort === 'asc' ? toggleDirOfSort('desc') : toggleDirOfSort('asc');
   setSelectedColumn(columnName);
@@ -247,13 +268,17 @@ const showMoreRows = () => {
 
 const tableRows = paginatedVisits[0]?.map((visit: VisitType, i:number) => {
   let isEvenRow = i%2 === 0 ? true : false;
-
+  let visitTime = visit.dateAndTime ? DateTime.fromISO(visit.dateAndTime) : undefined;
       return <tr key = {i} className = {clsx(classes.tr, {tableStriped: isEvenRow})}>
-                <td className = {classes.td}>{visit.dateAndTime.formatedDate}</td>
-                <td className = {classes.td}>{visit.dateAndTime.formatedTime}</td>
-                <td className = {classes.td}><a href={visit.clinic.url}> {visit.clinic.name}</a></td>
-                <td className = {classes.td}>{visit.doctor}</td>
-                <td className = {classes.td}><a href={visit.id.url}>ID: {visit.id.number}</a></td>
+                <td className = {classes.td}>{visitTime ? visitTime.toFormat('yyyy / MM / dd') : 'Неизвестно'}</td>
+                <td className = {classes.td}>{visitTime ? visitTime.toFormat('hh : mm') : 'Неизвестно'}</td>
+                <td className = {classes.td}>
+                  <Link to={`/clinic-list/${visit.clinic?.id ?? ''}`}>{visit.clinic?.name ?? 'Неизвестно'}</Link>
+                </td>
+                <td className = {classes.td}>{`${visit.doctor.lastName ?? 'Неизвестный'} ${visit.doctor.firstName ?? ''} ${visit.doctor.middleName ?? ''}`}</td>
+                <td className = {classes.td}>
+                  <Link to={`/visit-history/${visit.id}`}>ID: {visit.id}</Link>
+                </td>
               </tr>
 })
 
@@ -264,6 +289,9 @@ const sortArrow = dirOfSort === 'asc'
                   : <span>&#9650;</span>;
   return (    
     <div className={classes.container}>
+      <div className = {classes.toMainMenuLink}>
+        <Link to='/main-page'>На главную</Link>
+      </div>
       <div className = {classes.title}>
         <h1>История посещений</h1>
       </div>
@@ -271,9 +299,9 @@ const sortArrow = dirOfSort === 'asc'
         <thead className = {classes.thead}>
             <tr>
                 <th 
-                onClick={sortBySomeColumn.bind(null, 'dateAndTime.originalDate')} 
+                onClick={sortBySomeColumn.bind(null, 'dateAndTime')} 
                 className = {classes.th}
-                >Дата {selectedColumn === 'dateAndTime.originalDate' && sortArrow}
+                >Дата {selectedColumn === 'dateAndTime' && sortArrow}
                 </th>
                 <th  
                 className = {classes.th}>Время
@@ -284,9 +312,9 @@ const sortArrow = dirOfSort === 'asc'
                 >Клиника {selectedColumn === 'clinic.name' && sortArrow}
                 </th>
                 <th 
-                onClick={sortBySomeColumn.bind(null, 'doctor')}
+                onClick={sortBySomeColumn.bind(null, 'doctor.lastName')}
                 className = {classes.th}
-                >Врач {selectedColumn === 'doctor' && sortArrow}
+                >Врач {selectedColumn === 'doctor.lastName' && sortArrow}
                 </th>
                 <th className = {classes.th}>Запись визита
                 </th>

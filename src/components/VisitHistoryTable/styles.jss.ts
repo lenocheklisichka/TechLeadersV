@@ -10,6 +10,12 @@ const styles = (theme: Theme) => ({
     color: '#212529',
   },
 
+  toMainMenuLink: {
+    position: 'fixed',
+    top: '10px',
+    right: '15px',
+  },
+
   title: {
     fontSize: '1.5rem',
   },
