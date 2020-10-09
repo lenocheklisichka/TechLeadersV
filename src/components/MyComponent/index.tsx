@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 export const MyComponent: React.FC = () => {
+    let InputEl = useRef("");
     const [value, setValue] = useState("");
     return (
         <div
@@ -8,12 +9,12 @@ export const MyComponent: React.FC = () => {
                 border: "1px solid silver"
             }}
         >
-            <input type="text" />
+            <input type="text" ref={InputEl.current} />
             <br/>
             {value}
             <br/>
             <button
-                onClick={() => setValue(document.getElementsByTagName("input")[0].value)}
+                onClick={() => setValue(InputEl.current)}
             >
                 OK
             </button>
