@@ -8,7 +8,6 @@ import App from "./App";
 import { theme } from "./theme";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { } from 'react-router-dom'
 
 const createGenerateId = () => (rule: Rule, sheet?: StyleSheet) => {
   const prefix = sheet?.options.classNamePrefix;
@@ -24,7 +23,7 @@ const generateId = createGenerateId();
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter >
+    <BrowserRouter>
       <JssProvider generateId={generateId}>
         <ThemeProvider theme={theme}>
           <App />
