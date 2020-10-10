@@ -6,7 +6,6 @@ import useStyles from "./App.styles.jss";
 import { Button } from "./ui/Button";
 import { AppStoreProvider, useAppStore } from "./store/AppStore";
 import { Test } from "./components/Test";
-import { Radio } from "./ui/Radio";
 
 const App: React.FC = () => {
   useGlobalStyles();
