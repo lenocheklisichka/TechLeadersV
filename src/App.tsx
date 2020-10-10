@@ -43,11 +43,6 @@ const App: React.FC = () => {
         >
           Learn React
         </Button>
-        <div style={{ display: "flex", flexDirection: "column", backgroundColor: "white", fontSize: "1rem" }}>
-          <Radio name="gender" value="male" label="Муж" onChange={() => {console.log("Муж")}} />
-          <Radio name="gender" value="female" label="Жен" onChange={() => {console.log("Жен")}} />
-          <Radio name="gender" value="other" label="Др." isDisabled={true} onChange={() => {console.log("Др.")}} />
-        </div>
       </header>
     </div>
   );
