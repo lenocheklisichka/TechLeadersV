@@ -6,6 +6,7 @@ import useStyles from "./App.styles.jss";
 import { Button } from "./ui/Button";
 import { AppStoreProvider, useAppStore } from "./store/AppStore";
 import { Test } from "./components/Test";
+import MyTest from "./components/MyComponent";
 
 const App: React.FC = () => {
   useGlobalStyles();
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <MyTest />
         <Test />
         <Button
           variant="contained"
