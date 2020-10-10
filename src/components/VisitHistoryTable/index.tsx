@@ -8,221 +8,228 @@ import  orderBy  from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 
 
+function generateId(num:number = 6) {
+  let array = [];
+  for (let i = 0; i < num ; i++) {
+    array.push(Math.floor(Math.random() * Math.floor(10)));
+  }
+  let id = +array.join('');
+  return id;      
+} 
+
+const visitsFromServer:VisitType[] = [
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2015, 1, 20, 6, 8).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'ВОКБ № 1',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Иван',
+      middleName: 'Петрович',
+      lastName: 'Комаров',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date().toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'БСМП',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Петр',
+      middleName: 'Иванович',
+      lastName: 'Сидоров',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2020, 1, 20, 1, 8).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'Детская областная',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Иван',
+      middleName: 'Иванович',
+      lastName: 'Комаровский',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2019, 1, 20, 6, 4).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'БСМП',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Петр',
+      middleName: 'Иванович',
+      lastName: 'Васильков',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2017, 1, 20, 15, 18).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'ВОКБ № 1',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Дмитрий',
+      middleName: 'A',
+      lastName: 'Сенькевич',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2020, 9, 20, 5, 8).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'Поликлиника № 5',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'A',
+      middleName: 'A',
+      lastName: 'A',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2020, 10, 1, 16, 8).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'Инфекционная',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Виктор',
+      middleName: 'Викторович',
+      lastName: 'Мазай',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date().toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'Поликлиника № 1',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Иван',
+      middleName: 'Иванович',
+      lastName: 'Коромыслов',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2020, 6, 1, 16, 8).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'Поликлиника № 3',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Зураб',
+      middleName: 'A',
+      lastName: 'Забойнов',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2018, 5, 1, 1, 29).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'Поликлиника № 3',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Ольга',
+      middleName: 'Сергеевна',
+      lastName: 'Виктюк',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2010, 5, 1, 1, 29).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'ВОКБ',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Елена',
+      middleName: 'Ивановна',
+      lastName: 'Сидорова',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date(2019, 4, 1, 8, 29).toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'ВОКБ № 1',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Андрей',
+      middleName: 'Иванович',
+      lastName: 'Юдин',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date().toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'Поликлиника № 3',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Ирина',
+      middleName: 'Андреевна',
+      lastName: 'Яхонтова',
+    }, 
+  },
+  {
+    id: generateId(6),
+    dateAndTime: new Date().toISOString(),
+    clinic: {
+      id: generateId(4),
+      name: 'БСМП',
+    },
+    doctor: {
+      id: generateId(4),
+      firstName: 'Петр',
+      middleName: 'Иванович',
+      lastName: 'Сидоров',
+    }, 
+  },
 
 
-
+];
 const VisitStoryTable = () => {
-
-  const visits:Array<VisitType> = [
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2015, 1, 20, 6, 8).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'ВОКБ № 1',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Иван',
-        middleName: 'Петрович',
-        lastName: 'Комаров',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date().toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'БСМП',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Петр',
-        middleName: 'Иванович',
-        lastName: 'Сидоров',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2020, 1, 20, 1, 8).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'Детская областная',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Иван',
-        middleName: 'Иванович',
-        lastName: 'Комаровский',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2019, 1, 20, 6, 4).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'БСМП',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Петр',
-        middleName: 'Иванович',
-        lastName: 'Васильков',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2017, 1, 20, 15, 18).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'ВОКБ № 1',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Дмитрий',
-        middleName: '',
-        lastName: 'Сенькевич',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2020, 9, 20, 5, 8).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'Поликлиника № 5',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: '',
-        middleName: '',
-        lastName: '',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2020, 10, 1, 16, 8).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'Инфекционная',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Виктор',
-        middleName: 'Викторович',
-        lastName: 'Мазай',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: '',
-      clinic: {
-        id: generateId(4),
-        name: 'Поликлиника № 1',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Иван',
-        middleName: 'Иванович',
-        lastName: 'Коромыслов',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2020, 6, 1, 16, 8).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'Поликлиника № 3',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Зураб',
-        middleName: '',
-        lastName: 'Забойнов',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2018, 5, 1, 1, 29).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'Поликлиника № 3',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Ольга',
-        middleName: 'Сергеевна',
-        lastName: 'Виктюк',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2010, 5, 1, 1, 29).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'ВОКБ',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Елена',
-        middleName: 'Ивановна',
-        lastName: 'Сидорова',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date(2019, 4, 1, 8, 29).toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'ВОКБ № 1',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Андрей',
-        middleName: 'Иванович',
-        lastName: 'Юдин',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date().toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'Поликлиника № 3',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Ирина',
-        middleName: 'Андреевна',
-        lastName: 'Яхонтова',
-      }, 
-    },
-    {
-      id: generateId(6),
-      dateAndTime: new Date().toISOString(),
-      clinic: {
-        id: generateId(4),
-        name: 'БСМП',
-      },
-      doctor: {
-        id: generateId(4),
-        firstName: 'Петр',
-        middleName: 'Иванович',
-        lastName: 'Сидоров',
-      }, 
-    },
-
-  
-  ];
 
 
 const classes = useStyles();
-const [sortedVisits, setSortedVisits] = useState<Array<VisitType> | null>([]);
-const [paginatedVisits, setPaginateVisits] = useState<Array<Array<VisitType>>>([]);
+const [visits, setVisits] = useState<VisitType[]>(visitsFromServer);
+const [sortedVisits, setSortedVisits] = useState<VisitType[] | null>([]);
+const [paginatedVisits, setPaginateVisits] = useState<VisitType[][]>([]);
 const [dirOfSort, toggleDirOfSort] = useState<'asc' | 'desc'>('desc');
 const [selectedColumn, setSelectedColumn] = useState('');
 const [itemPerPageCount, setItemPerPageCount] = useState(10);
 
 useEffect(() => {
+  setVisits(visitsFromServer);
   sortBySomeColumn('dateAndTime');
 }, []);
 
@@ -232,7 +239,7 @@ useEffect(() => {
 
 
 const createPaginationArray = () => {
-  let paginatedData: Array<Array<VisitType> | undefined> = [];
+  let paginatedData: (VisitType[] | undefined)[]  = [];
   const numOfPages = sortedVisits ? Math.ceil(sortedVisits.length / itemPerPageCount) : 1;
 
   for (let i = 0; i < numOfPages; i++) {
@@ -240,18 +247,9 @@ const createPaginationArray = () => {
     let finishRow = startRow + itemPerPageCount;
     let newPageData = sortedVisits?.slice(startRow, finishRow);
     paginatedData ? paginatedData = [...paginatedData, newPageData] : paginatedData = [];
-    setPaginateVisits(paginatedData as Array<Array<VisitType>>);
+    setPaginateVisits(paginatedData as VisitType[][]);
   }
 }
-
-function generateId(num:number = 6) {
-    let array = [];
-    for (let i = 0; i < num ; i++) {
-      array.push(Math.floor(Math.random() * Math.floor(10)));
-    }
-    let id = +array.join('');
-    return id;      
-} 
 
 const sortBySomeColumn = (columnName:string) => {
   let sortData = orderBy(visits, [columnName], [dirOfSort])
@@ -267,22 +265,22 @@ const showMoreRows = () => {
 }
 
 const tableRows = paginatedVisits[0]?.map((visit: VisitType, i:number) => {
-  let isEvenRow = i%2 === 0 ? true : false;
-  let visitTime = visit.dateAndTime ? DateTime.fromISO(visit.dateAndTime) : undefined;
+  let isEvenRow = i%2 === 0;
+  let visitTime =  DateTime.fromISO(visit.dateAndTime);
       return <tr key = {i} className = {clsx(classes.tr, {tableStriped: isEvenRow})}>
-                <td className = {classes.td}>{visitTime ? visitTime.toFormat('yyyy / MM / dd') : 'Неизвестно'}</td>
-                <td className = {classes.td}>{visitTime ? visitTime.toFormat('hh : mm') : 'Неизвестно'}</td>
+                <td className = {classes.td}>{visitTime.toFormat('yyyy / MM / dd')}</td>
+                <td className = {classes.td}>{visitTime.toFormat('hh : mm')}</td>
                 <td className = {classes.td}>
-                  <Link to={`/clinic-list/${visit.clinic?.id ?? ''}`}>{visit.clinic?.name ?? 'Неизвестно'}</Link>
+                  <Link to={`/clinic-list/${visit.clinic?.id}`}>{visit.clinic.name}</Link>
                 </td>
-                <td className = {classes.td}>{`${visit.doctor.lastName ?? 'Неизвестный'} ${visit.doctor.firstName ?? ''} ${visit.doctor.middleName ?? ''}`}</td>
+                <td className = {classes.td}>{`${visit.doctor.lastName} ${visit.doctor.firstName} ${visit.doctor.middleName}`}</td>
                 <td className = {classes.td}>
                   <Link to={`/visit-history/${visit.id}`}>ID: {visit.id}</Link>
                 </td>
               </tr>
 })
 
-const IsFewPages = paginatedVisits && paginatedVisits.length > 1 ? true : false;
+const IsFewPages = paginatedVisits && paginatedVisits.length > 1;
 
 const sortArrow = dirOfSort === 'asc' 
                   ? <span>&#9660;</span> 
@@ -290,7 +288,7 @@ const sortArrow = dirOfSort === 'asc'
   return (    
     <div className={classes.container}>
       <div className = {classes.toMainMenuLink}>
-        <Link to='/main-page'>На главную</Link>
+        <Link to='/'>На главную</Link>
       </div>
       <div className = {classes.title}>
         <h1>История посещений</h1>
