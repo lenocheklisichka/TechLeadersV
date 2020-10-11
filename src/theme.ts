@@ -28,6 +28,7 @@ export interface Theme {
     notMobile: string;
     notDesktop: string;
   };
+  fontFamily: string;
 }
 
 export const TABLET_BREAKPOINT = 768;
@@ -62,5 +63,7 @@ export const theme: Theme = {
     error: {
       main: "red",
     },
-  }
-}
+  },
+  fontFamily:
+      'apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+};
