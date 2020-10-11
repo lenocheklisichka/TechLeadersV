@@ -6,6 +6,7 @@ import useStyles from "./App.styles.jss";
 import { Button } from "./ui/Button";
 import { AppStoreProvider, useAppStore } from "./store/AppStore";
 import { Test } from "./components/Test";
+import { AuthorizationForm } from "./components/AuthorizationForm"
 
 const App: React.FC = () => {
   useGlobalStyles();
@@ -26,6 +27,7 @@ const App: React.FC = () => {
   }, [setDevice]);
 
   return (
+    /*
     <div className={classes.root}>
       <header className={classes.header}>
         <img src={logo} className={classes.logo} alt="logo" />
@@ -44,6 +46,10 @@ const App: React.FC = () => {
         </Button>
       </header>
     </div>
+    */
+   <div>
+     <AuthorizationForm />
+   </div>
   );
 }
 
