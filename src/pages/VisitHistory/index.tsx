@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { VisitType } from './types';
-import useStyles from "./styles.jss";
-import clsx from "clsx";
-import { Button } from '../../ui/Button';
 import { Link } from 'react-router-dom';
 import  orderBy  from 'lodash/orderBy';
 import times from "lodash/times";
 import { DateTime } from 'luxon';
+import clsx from "clsx";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 
+import { VisitType } from './types';
+import useStyles from "./styles.jss";
+import { Button } from '../../ui/Button';
+import HttpService from "../../services/HttpService";
+
+const mock = new MockAdapter(axios, { delayResponse: 1500 });
 
 function generateId(num:number = 6) {
   let array = [];
@@ -18,7 +23,7 @@ function generateId(num:number = 6) {
   return id;      
 } 
 
-const visitsFromServer:VisitType[] = [
+mock.onGet("/visit-history").reply(200, [
   {
     id: generateId(6),
     dateAndTime: new Date(2015, 1, 20, 6, 8).toISOString(),
@@ -215,6 +220,12 @@ const visitsFromServer:VisitType[] = [
       lastName: 'Сидоров',
     }, 
   },
+]);
+
+
+
+const visitsFromServer:VisitType[] = [
+  
 
 
 ];
@@ -230,8 +241,16 @@ const VisitStoryTable: React.FC = () => {
 
   useEffect(() => {
     setVisits(visitsFromServer);
-    sortBySomeColumn('dateAndTime');
+    (async () => {
+      const response = await HttpService.get<VisitType[]>("/visit-history");
+
+      setVisits(response);
+    })();
   }, []);
+
+  useEffect(() => {
+    sortBySomeColumn('dateAndTime');
+  }, [visits]);
 
   useEffect(() => {
     createPaginationArray();
@@ -252,7 +271,7 @@ const VisitStoryTable: React.FC = () => {
     });
   }
 
-  const sortBySomeColumn = (columnName:string) => {
+  const sortBySomeColumn = (columnName: string) => {
     let sortData = orderBy(visits, [columnName], [dirOfSort]);
 
     setSortedVisits(prev => prev = sortData);
