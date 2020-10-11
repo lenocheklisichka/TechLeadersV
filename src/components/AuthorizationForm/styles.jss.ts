@@ -3,12 +3,16 @@ import { theme, Theme } from "../../theme";
 
 const styles = (theme: Theme) => ({
   root: {
-    
+    padding: "20px 20px"
   },
   inputWrapper: {
     display: "grid",
-    gridTemplateColumns: "repeat(2, 100px)",
-    gridTemplateRows: "repeate(2, 40px)"
+    gridTemplateColumns: "100px 200px",
+    gridRowGap: 5,
+    marginBottom: 5
+  },
+  fillerDiv: {
+    height: 3000
   }
 })
 
