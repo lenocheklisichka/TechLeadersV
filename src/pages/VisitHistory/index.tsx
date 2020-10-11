@@ -222,17 +222,9 @@ mock.onGet("/visit-history").reply(200, [
   },
 ]);
 
-
-
-const visitsFromServer:VisitType[] = [
-  
-
-
-];
-
 const VisitStoryTable: React.FC = () => {
   const classes = useStyles();
-  const [visits, setVisits] = useState<VisitType[]>(visitsFromServer);
+  const [visits, setVisits] = useState<VisitType[]>([]);
   const [sortedVisits, setSortedVisits] = useState<VisitType[] | null>([]);
   const [paginatedVisits, setPaginateVisits] = useState<VisitType[][]>([]);
   const [dirOfSort, toggleDirOfSort] = useState<'asc' | 'desc'>('desc');
@@ -240,7 +232,6 @@ const VisitStoryTable: React.FC = () => {
   const [itemPerPageCount, setItemPerPageCount] = useState(10);
 
   useEffect(() => {
-    setVisits(visitsFromServer);
     (async () => {
       const response = await HttpService.get<VisitType[]>("/visit-history");
 
