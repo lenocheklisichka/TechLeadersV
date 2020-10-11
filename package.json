@@ -13,6 +13,8 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.6",
+    "axios": "^0.20.0",
+    "browser-cookies": "^1.2.0",
     "clsx": "^1.1.1",
     "lodash": "^4.17.20",
     "luxon": "^1.25.0",
@@ -56,6 +58,7 @@
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.26",
     "@types/murmurhash": "^0.0.1",
+    "axios-mock-adapter": "^1.18.2",
     "babel-loader": "^8.1.0",
     "react-is": "^16.13.1"
   }
