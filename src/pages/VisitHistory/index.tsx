@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Button } from '../../ui/Button';
 import { Link } from 'react-router-dom';
 import  orderBy  from 'lodash/orderBy';
+import times from "lodash/times";
 import { DateTime } from 'luxon';
 
 
@@ -217,74 +218,79 @@ const visitsFromServer:VisitType[] = [
 
 
 ];
-const VisitStoryTable = () => {
+
+const VisitStoryTable: React.FC = () => {
+  const classes = useStyles();
+  const [visits, setVisits] = useState<VisitType[]>(visitsFromServer);
+  const [sortedVisits, setSortedVisits] = useState<VisitType[] | null>([]);
+  const [paginatedVisits, setPaginateVisits] = useState<VisitType[][]>([]);
+  const [dirOfSort, toggleDirOfSort] = useState<'asc' | 'desc'>('desc');
+  const [selectedColumn, setSelectedColumn] = useState('');
+  const [itemPerPageCount, setItemPerPageCount] = useState(10);
+
+  useEffect(() => {
+    setVisits(visitsFromServer);
+    sortBySomeColumn('dateAndTime');
+  }, []);
+
+  useEffect(() => {
+    createPaginationArray();
+    }, [sortedVisits, itemPerPageCount]);
 
 
-const classes = useStyles();
-const [visits, setVisits] = useState<VisitType[]>(visitsFromServer);
-const [sortedVisits, setSortedVisits] = useState<VisitType[] | null>([]);
-const [paginatedVisits, setPaginateVisits] = useState<VisitType[][]>([]);
-const [dirOfSort, toggleDirOfSort] = useState<'asc' | 'desc'>('desc');
-const [selectedColumn, setSelectedColumn] = useState('');
-const [itemPerPageCount, setItemPerPageCount] = useState(10);
+  const createPaginationArray = () => {
+    let paginatedData: (VisitType[] | undefined)[]  = [];
+    const numOfPages = sortedVisits ? Math.ceil(sortedVisits.length / itemPerPageCount) : 1;
 
-useEffect(() => {
-  setVisits(visitsFromServer);
-  sortBySomeColumn('dateAndTime');
-}, []);
+    times(numOfPages, (i) => {
+      let startRow = (i) * itemPerPageCount;
+      let finishRow = startRow + itemPerPageCount;
+      let newPageData = sortedVisits?.slice(startRow, finishRow);
 
-useEffect(() => {
-  createPaginationArray();
-  }, [sortedVisits, itemPerPageCount]);
-
-
-const createPaginationArray = () => {
-  let paginatedData: (VisitType[] | undefined)[]  = [];
-  const numOfPages = sortedVisits ? Math.ceil(sortedVisits.length / itemPerPageCount) : 1;
-
-  for (let i = 0; i < numOfPages; i++) {
-    let startRow = (i) * itemPerPageCount;
-    let finishRow = startRow + itemPerPageCount;
-    let newPageData = sortedVisits?.slice(startRow, finishRow);
-    paginatedData ? paginatedData = [...paginatedData, newPageData] : paginatedData = [];
-    setPaginateVisits(paginatedData as VisitType[][]);
+      paginatedData ? paginatedData = [...paginatedData, newPageData] : paginatedData = [];
+      setPaginateVisits(paginatedData as VisitType[][]);
+    });
   }
-}
 
-const sortBySomeColumn = (columnName:string) => {
-  let sortData = orderBy(visits, [columnName], [dirOfSort])
-  setSortedVisits(prev => prev = sortData)
-  dirOfSort === 'asc' ? toggleDirOfSort('desc') : toggleDirOfSort('asc');
-  setSelectedColumn(columnName);
-}
+  const sortBySomeColumn = (columnName:string) => {
+    let sortData = orderBy(visits, [columnName], [dirOfSort]);
 
-const showMoreRows = () => {
-  if (sortedVisits && itemPerPageCount < sortedVisits.length) {
-    setItemPerPageCount(prev => prev +=10)
+    setSortedVisits(prev => prev = sortData);
+    
+    dirOfSort === 'asc' ? toggleDirOfSort('desc') : toggleDirOfSort('asc');
+    setSelectedColumn(columnName);
   }
-}
 
-const tableRows = paginatedVisits[0]?.map((visit: VisitType, i:number) => {
-  let isEvenRow = i%2 === 0;
-  let visitTime =  DateTime.fromISO(visit.dateAndTime);
-      return <tr key = {i} className = {clsx(classes.tr, {tableStriped: isEvenRow})}>
-                <td className = {classes.td}>{visitTime.toFormat('yyyy / MM / dd')}</td>
-                <td className = {classes.td}>{visitTime.toFormat('hh : mm')}</td>
-                <td className = {classes.td}>
-                  <Link to={`/clinic-list/${visit.clinic?.id}`}>{visit.clinic.name}</Link>
-                </td>
-                <td className = {classes.td}>{`${visit.doctor.lastName} ${visit.doctor.firstName} ${visit.doctor.middleName}`}</td>
-                <td className = {classes.td}>
-                  <Link to={`/visit-history/${visit.id}`}>ID: {visit.id}</Link>
-                </td>
-              </tr>
-})
+  const showMoreRows = () => {
+    if (sortedVisits && itemPerPageCount < sortedVisits.length) {
+      setItemPerPageCount(prev => prev +=10)
+    }
+  }
 
-const IsFewPages = paginatedVisits && paginatedVisits.length > 1;
+  const tableRows = paginatedVisits[0]?.map((visit: VisitType, i: number) => {
+    let isEvenRow = i%2 === 0;
+    let visitTime =  DateTime.fromISO(visit.dateAndTime);
 
-const sortArrow = dirOfSort === 'asc' 
-                  ? <span>&#9660;</span> 
-                  : <span>&#9650;</span>;
+    return (
+      <tr key = {i} className = {clsx(classes.tr, {tableStriped: isEvenRow})}>
+        <td className = {classes.td}>{visitTime.toFormat('yyyy / MM / dd')}</td>
+        <td className = {classes.td}>{visitTime.toFormat('hh : mm')}</td>
+        <td className = {classes.td}>
+          <Link to={`/clinic-list/${visit.clinic?.id}`}>{visit.clinic.name}</Link>
+        </td>
+        <td className = {classes.td}>{`${visit.doctor.lastName} ${visit.doctor.firstName} ${visit.doctor.middleName}`}</td>
+        <td className = {classes.td}>
+          <Link to={`/visit-history/${visit.id}`}>ID: {visit.id}</Link>
+        </td>
+      </tr>
+    )
+  })
+
+  const IsFewPages = paginatedVisits && paginatedVisits.length > 1;
+  const sortArrow = dirOfSort === 'asc' 
+    ? <span>&#9660;</span> 
+    : <span>&#9650;</span>;
+
   return (    
     <div className={classes.container}>
       <div className = {classes.toMainMenuLink}>
@@ -322,14 +328,16 @@ const sortArrow = dirOfSort === 'asc'
             {tableRows}            
           </tbody>
       </table>
-      {IsFewPages && 
-      <Button
+
+      {IsFewPages && (
+        <Button
           variant="contained"
           color="secondary"
           onClick={showMoreRows}
         >
           Еще записи
-      </Button>}
+      </Button>
+      )}
     </div>
   );
 }

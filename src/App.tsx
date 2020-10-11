@@ -4,7 +4,7 @@ import React, { useEffect, useCallback } from "react";
 import useGlobalStyles from "./styles.jss";
 import useStyles from "./App.styles.jss";
 import { AppStoreProvider, useAppStore } from "./store/AppStore";
-import VisitStoryTable from "./components/VisitHistoryTable";
+import VisitStoryTable from "./pages/VisitHistory";
 import { Link, Route, Switch } from "react-router-dom";
 import MainPage from "./components/MainPage";
 
@@ -15,11 +15,8 @@ const App: React.FC = () => {
 
   const setDevice = useCallback(() => {
     setDeviceWidth(window.innerWidth);
-  }, [setDeviceWidth])
+  }, [setDeviceWidth]);
  
- 
-
-
   useEffect(() => {
     setDevice();
     window.addEventListener("resize", setDevice);
