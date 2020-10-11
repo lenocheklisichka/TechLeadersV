@@ -7,6 +7,7 @@ import { AppStoreProvider, useAppStore } from "./store/AppStore";
 import VisitStoryTable from "./pages/VisitHistory";
 import { Link, Route, Switch } from "react-router-dom";
 import MainPage from "./components/MainPage";
+import DoctorPage from "./pages/DoctorPage";
 
 const App: React.FC = () => {
   useGlobalStyles();
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       <Switch>
           <Route exact path = '/' component={MainPage} />
           <Route path='/visit-history' component={VisitStoryTable}/>
+          <Route path='/doctor-page' component={DoctorPage}/>
           <Route path='/clinic-list' render={() => <div>Список клиник</div>}/>
           <Route path='*' render={() => <div>Ошибка 404! Упс, страница не найдена
             <Link to = '/'>Назад</Link>

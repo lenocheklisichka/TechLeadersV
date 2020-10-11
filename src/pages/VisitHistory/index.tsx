@@ -11,17 +11,11 @@ import { VisitType } from './types';
 import useStyles from "./styles.jss";
 import { Button } from '../../ui/Button';
 import HttpService from "../../services/HttpService";
+import { generateId } from '../../helpers/helpFunctions';
 
 const mock = new MockAdapter(axios, { delayResponse: 1500 });
 
-function generateId(num:number = 6) {
-  let array = [];
-  for (let i = 0; i < num ; i++) {
-    array.push(Math.floor(Math.random() * Math.floor(10)));
-  }
-  let id = +array.join('');
-  return id;      
-} 
+
 
 mock.onGet("/visit-history").reply(200, [
   {

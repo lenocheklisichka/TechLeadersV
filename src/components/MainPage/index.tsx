@@ -13,6 +13,7 @@ const MainPage: React.FC = () => {
             </p>
             <Test />
             <Link to='/visit-history'>История посещений</Link>
+            <Link to='/doctor-page'>Страница врача</Link>
             <Button
               variant="contained"
               color="primary"
