@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
  const MyTest = () => {
   const [value, setValue] = useState(1);
-  
   return (
     <div className="my-element" 
      style= {{
