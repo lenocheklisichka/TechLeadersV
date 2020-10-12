@@ -37,15 +37,18 @@ const styles = (theme: Theme) => ({
     justifyContent: "center",
     zIndex: 4,
     width: 752,
+    height: '60%',
     maxWidth: "100%",
 
     [theme.mediaRequests.tablet]: {
       width: 500,
+      height: "90%",
     },
 
     [theme.mediaRequests.mobile]: {
       width: "100%",
-    }
+      height: "100%",
+    },
   },
 
   popupClose: {
@@ -81,19 +84,20 @@ const styles = (theme: Theme) => ({
     padding: "35px 88px 50px",
     color: "#fff",
     minHeight: 200,
-    height: "60vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-evenly",
+    flexGrow: 2,
 
     [theme.mediaRequests.tablet]: {
       padding: "15px 20px 20px",
      },
 
-     [theme.mediaRequests.mobile]: {
+    [theme.mediaRequests.mobile]: {
       padding: "5px 10px 15px",
-     }
+     },
+
   },
 
  
