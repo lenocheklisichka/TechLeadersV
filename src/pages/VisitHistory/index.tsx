@@ -225,7 +225,7 @@ mock.onGet("/visit-history").reply(200, [
 const VisitStoryTable: React.FC = () => {
   const classes = useStyles();
   const [visits, setVisits] = useState<VisitType[]>([]);
-  const [sortedVisits, setSortedVisits] = useState<VisitType[] | null>([]);
+  const [sortedVisits, setSortedVisits] = useState<VisitType[]>([]);
   const [paginatedVisits, setPaginateVisits] = useState<VisitType[][]>([]);
   const [dirOfSort, toggleDirOfSort] = useState<'asc' | 'desc'>('desc');
   const [selectedColumn, setSelectedColumn] = useState('');
@@ -249,7 +249,7 @@ const VisitStoryTable: React.FC = () => {
 
 
   const createPaginationArray = () => {
-    let paginatedData: (VisitType[] | undefined)[]  = [];
+    let paginatedData: VisitType[][]  = [];
     const numOfPages = sortedVisits ? Math.ceil(sortedVisits.length / itemPerPageCount) : 1;
 
     times(numOfPages, (i) => {
@@ -257,7 +257,7 @@ const VisitStoryTable: React.FC = () => {
       let finishRow = startRow + itemPerPageCount;
       let newPageData = sortedVisits?.slice(startRow, finishRow);
 
-      paginatedData ? paginatedData = [...paginatedData, newPageData] : paginatedData = [];
+      paginatedData = [...paginatedData, newPageData];
       setPaginateVisits(paginatedData as VisitType[][]);
     });
   }
@@ -265,7 +265,7 @@ const VisitStoryTable: React.FC = () => {
   const sortBySomeColumn = (columnName: string) => {
     let sortData = orderBy(visits, [columnName], [dirOfSort]);
 
-    setSortedVisits(prev => prev = sortData);
+    setSortedVisits(sortData);
     
     dirOfSort === 'asc' ? toggleDirOfSort('desc') : toggleDirOfSort('asc');
     setSelectedColumn(columnName);
