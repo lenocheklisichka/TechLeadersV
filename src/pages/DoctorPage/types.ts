@@ -49,7 +49,7 @@ export type DoctorType = {
     degree?: string,
     education: EducationItem[],
     workExperience: WorkExperienceItem[],
-    gallery: String[],
+    gallery: string[],
     schedule: ScheduleItem[],
   },
 

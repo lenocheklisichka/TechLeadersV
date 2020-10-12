@@ -14,6 +14,9 @@ import avatar2 from './../../assets/images/doctorsPhoto/doctor1/reviews/rewiew2/
 import { DoctorType } from './types';
 import HttpService from '../../services/HttpService';
 import { Link } from 'react-router-dom';
+import { DateTime } from 'luxon';
+import clsx from "clsx";
+import likeIcon from './../../assets/images/like.png';
 
 
 const mock = new MockAdapter(axios, { delayResponse: 1000 });
@@ -38,7 +41,7 @@ mock.onGet("/doctor-page").reply(200, {
         },
         {
           organizationName: 'Институт повышения квалификации',
-          programName: 'Методика работы с больными COVID-19',          
+          programmName: 'Методика работы с больными COVID-19',          
           graduationDate: new Date(2020, 3).toISOString(),
           studyDuration: '1 мес',
         },
@@ -55,7 +58,7 @@ mock.onGet("/doctor-page").reply(200, {
           organizationName: 'БУЗ ВО «Воронежская областная клиническая больница»',
           from: new Date(2017, 2).toISOString(),
           to: new Date().toISOString(),
-          position: 'Заведующая терапевтическим отделением'
+          position: 'Заведующий терапевтическим отделением'
         },        
       ],
 
@@ -73,7 +76,7 @@ mock.onGet("/doctor-page").reply(200, {
         },
         {
           organizationId: generateId(5),
-          organizationName: 'БСМП>',
+          organizationName: 'БСМП',
           workingTime: [
             {day: 'понедельник', time: '15.00 : 17.00'},
             {day: 'вторник', time: '8.00 : 17.00'},
@@ -82,6 +85,7 @@ mock.onGet("/doctor-page").reply(200, {
             {day: 'пятница', time: '15.00 : 17.00'},
           ],          
         },
+        
       ]    
 
     },
@@ -109,7 +113,7 @@ mock.onGet("/doctor-page").reply(200, {
         raiting: 2,
         countOfreviews: 101,
         countOfLikes: 1,
-        textReview: 'Говорил очень много непонятных слов и содрал кучу бабла. Не рекомендую',
+        textReview: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium, reprehenderit. Impedit ipsum laboriosam ducimus rem vitae corrupti molestias debitis nesciunt fugit? Reprehenderit consectetur sit nemo tenetur deserunt inventore vitae sequi amet in impedit ut at dolore hic harum explicabo quibusdam, voluptatibus ipsum quasi eligendi, sint quisquam, commodi perferendis qui voluptatem.',
       }
     ]
   },
@@ -118,7 +122,7 @@ mock.onGet("/doctor-page").reply(200, {
 const DoctorPage: React.FC = () => {
   const classes = useStyles();
   const [currentDoctor, setCurrentDoctor] = useState<DoctorType>();
-
+  const [witchDiplomClicked, setwitchDiplomClicked] = useState(0);
   useEffect(() => {
     (async () => {
       const response = await HttpService.get<DoctorType>("/doctor-page");
@@ -126,23 +130,152 @@ const DoctorPage: React.FC = () => {
     })();
   }, []);
 
-  return(
+  const sheduleItems = currentDoctor?.about.schedule.map(organization => {
+    return <div key = {organization.organizationId} >
+            <h4>{organization.organizationName}</h4>
+            <div>
+            {organization.workingTime.map(day => <p>{`${day.day} - ${day.time}`}</p> )}
+            </div>            
+          </div>
+  })
+
+  const workExperienceItems = currentDoctor?.about.workExperience.map(organization => {
+    let workTimeFrom = DateTime.fromISO(organization.from);
+    let workTimeTo = DateTime.fromISO(organization.to);
+    return <div key = {organization.organizationName}>
+            <h4>{organization.organizationName}</h4>
+            <p>{`c ${workTimeFrom.toFormat('MM.yyyy')} по ${workTimeTo.toFormat('MM.yyyy')}`}</p>
+            <p>{organization.position}</p>
+          </div>
+  })
+
+  const educationItems = currentDoctor?.about.education.map(organization => {
+    let graduationDate = DateTime.fromISO(organization.graduationDate);
+
+    return <div key={organization.organizationName}>
+            <h4>{organization.organizationName}</h4>
+            <p>{ organization.programmName}</p>
+            <p> { `Дата окончания: ${graduationDate.toFormat('MM.yyyy')}` } </p>
+            <p> { `Срок обучения: ${organization.studyDuration}` }</p>
+          </div>
+  })
+
+  const changeDiplomClicked =  (num: number) => {
+    witchDiplomClicked === 0 ? setwitchDiplomClicked(num) : setwitchDiplomClicked(0)
+  }
+
+  const diplomasItems = currentDoctor?.about.gallery.map((photo, i) => {
+    return <div key = {photo} className={classes.doplomWrp}>
+              <img onClick = {changeDiplomClicked.bind(null, i+1)} className = {clsx(classes.diplom, {
+                clicked: witchDiplomClicked === i+1,
+              })} src={photo} alt={`diplom ${i+1}`}/>
+    </div>
+  })
+
+  const reviewsItems = currentDoctor?.reviews.map((review, i) => {
+      return <div key = {review.id} className = {classes.reviewItem}>
+                <div className = {classes.reviewCol1}>
+                  <img className = {classes.rewiewAva} src={review.avatar} alt={`review ${i}`}/>
+                  <p>{`Всего отзывов: ${review.countOfreviews}`} <span><img src={likeIcon} alt=""/> {review.countOfLikes}</span></p>
+                  <p>{`Оценка: ${review.raiting}`}</p>
+                </div>
+                <div className = {classes.reviewCol2}>
+                  <p>{review.textReview}</p>
+                </div>
+            </div>
+  })
+
+  const getCommonRaiting = () => {
+    let array:number[] = [];
+    currentDoctor?.reviews.forEach(review=> {
+        array.push(review.raiting); 
+    })
+    let raiting = (array.reduce((sum, cur) => sum + cur)/array.length).toFixed(2);
+    return raiting
+  }
+  if (currentDoctor) return(
     <div className = {classes.mainWrp}>
       <div><Link to='/'>На главную</Link></div>
       <div className = {classes.titleWrp}><h1>{currentDoctor && `${currentDoctor.lastName} ${currentDoctor.firstName} ${currentDoctor.middleName}`}</h1>
       </div>
+
       <div className = {classes.descriptionWrp}>
-        <div></div>
-        <div></div>
+        <div className = {classes.imgWrp}> 
+            <img src={currentDoctor.photo} alt="avatar"/>
+            <div>Общий рейтинг: {getCommonRaiting()} </div>
+        </div>
+        <div className ={classes.aboutWrp}>
+            <div className={classes.col}>
+              
+                <div className = {classes.row}>
+                <div className={classes.col}>
+                  {['Специализация:',
+                   'Категория:',
+                    'Возраст:'].map(item => <p> <b>{item}</b> </p>)}
+                </div>
+                <div className={classes.col}>
+                  <p>{currentDoctor.about.specialization}</p>
+                  <p>{`${currentDoctor.about.category}. ${currentDoctor.about.degree ?? ''}`}</p>
+                  <p>{currentDoctor.age}</p>                  
+                </div>
+                </div>
+
+            </div>
+            <div className={classes.col}>
+                <div className = {classes.row}>
+                    <div className={classes.col}>
+                    {['Тел:',
+                   'E-mail:',
+                    'Skype:'].map(item => <p> <b>{item}</b> </p>)}
+                    </div>
+                    <div className={classes.col}>
+                      <p>{currentDoctor.contacts.phone}</p>
+                      <p>{currentDoctor.contacts.email}</p>
+                      <p>{currentDoctor.contacts.skype}</p>                  
+                    </div>
+                  </div>
+            </div>
+        </div>
       </div>
-      <div className = {classes.scheduleWrp}><h1>График работы</h1></div>
-      <div className = {classes.workExperienceWrp}><h1>Опыт работы</h1></div>
-      <div className= {classes.educationWrp}><h1>Образование</h1></div>
-      <div className= {classes.galleryWrp}><h1>Дипломы</h1></div>
-      <div className= {classes.reviewsWrp}><h1>Отзывы</h1></div>
-        
+
+      <div className = {classes.scheduleWrp}>
+           <h1>График работы</h1>
+           <div className = {classes.organizationWrp}>
+           {sheduleItems}     
+           </div>                 
+      </div>
+
+      <div className = {classes.workExperienceWrp}>
+        <h1>Опыт работы</h1>
+        <div className = {classes.organizationWrp}>
+          {workExperienceItems}
+        </div>
+      </div>
+
+      <div className= {classes.educationWrp}>
+        <h1>Образование</h1>
+        <div className = {classes.organizationWrp}>
+          {educationItems}
+        </div>
+      </div>
+
+      <div className= {classes.galleryWrp}>
+        <h1>Дипломы</h1>
+        <div className = {classes.diplomasWrp}>
+            {diplomasItems}
+        </div>
+      </div>
+
+      <div className= {classes.reviewsWrp}>
+        <h1>Отзывы</h1>
+        <div className = {classes.reviews}>
+          {reviewsItems}
+        </div>
+      </div>
+
     </div>
   )
+  else return null
 }
 
 export default DoctorPage;
