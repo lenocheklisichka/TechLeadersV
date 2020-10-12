@@ -6,7 +6,7 @@ import React, { useState } from "react";
     <div className="my-element" 
      style= {{
         width: "100%",
-        lineHeight: "5px",
+        lineHeight: "10px",
       }}
     >
       {value}
