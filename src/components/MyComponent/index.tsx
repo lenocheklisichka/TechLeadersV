@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
- const MyTest = () => {
-  const [value, setValue] = useState(1);
+export const Component = () => {
+  const[value, setValue] = useState("")
+
+  const yogaTour = {
+    value: 'Йога-тур – это новый вид туризма, когда с путешествием в другую страну сочетаются занятия по йоге. Вы отдыхаете на море, посещаете интересные места, несколько раз в день занимаетесь йогой и проводите отпуск в интересной компании'
+  }
+
   return (
-    <div className="my-element" 
-     style= {{
-        width: "100%",
-        lineHeight: "10px",
+    <div
+      style = {{
+        margin: "100px auto",
+        color: "blue",
+        width: "500px",
       }}
     >
-      {value}
-      <button
-        onClick= {() => setValue(value + 1)}
-      >
-        Click me
-      </button>
+      <h1>ЙОГА-ТУРЫ В ИНДИЮ</h1>
 
+      {value}
+
+      <button
+       onClick = {() => setValue(yogaTour.value)}
+        style = {{
+          padding: "10px",
+          marginTop: "20px",
+          background: "transparent",
+          cursor: "pointer",
+       }}
+      >
+        Что такое йога-тур?
+      </button>
     </div>
   );
 };
-export default MyTest;
+
+

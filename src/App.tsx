@@ -1,12 +1,13 @@
 import React, { useEffect, useCallback } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 
 import useGlobalStyles from "./styles.jss";
 import useStyles from "./App.styles.jss";
-import { Button } from "./ui/Button";
+// import { Button } from "./ui/Button";
 import { AppStoreProvider, useAppStore } from "./store/AppStore";
-import { Test } from "./components/Test";
-import MyTest from "./components/MyComponent";
+import { Component } from "./components/MyComponent";
+// import { Test } from "./components/Test";
+
 
 const App: React.FC = () => {
   useGlobalStyles();
@@ -28,23 +29,7 @@ const App: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <header className={classes.header}>
-        <img src={logo} className={classes.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <MyTest />
-        <Test />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            window.open("https://reactjs.org", "_blank");
-          }}
-        >
-          Learn React
-        </Button>
-      </header>
+        <Component />
     </div>
   );
 }
