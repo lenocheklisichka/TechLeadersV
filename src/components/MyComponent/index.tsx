@@ -3,15 +3,14 @@ import  React,{useState, useEffect, useRef} from "react";
 export const FormComponent = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const hiddenBlockRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    setUsername(username);
-  },[username]);
-
-  useEffect(() => {
-    setPassword(password);
-  },[password]);
+    if(!username && !password) {
+      setButtonDisabled(false)
+    }
+  },[password, username]);
 
   return (
     <form>
@@ -27,6 +26,7 @@ export const FormComponent = () => {
         </label>
         <input
           name="username" type="text"
+          value={username}
           onChange={(event) => {
             setUsername(event.target.value)
           }}
@@ -50,6 +50,7 @@ export const FormComponent = () => {
         <input 
           name="password" 
           type="password"
+          value={password}
           onChange={(event) => {
             setPassword(event.target.value)
           }}
@@ -63,9 +64,7 @@ export const FormComponent = () => {
             background: "transparent",
             marginTop: "20px",
           }}
-
-          disabled={username === "" || password === ""}
-
+          disabled={buttonDisabled}
           onClick= { (event) => {
             // eslint-disable-next-line no-lone-blocks
             event.preventDefault(); {
