@@ -7,7 +7,7 @@ export const FormComponent = () => {
   const hiddenBlockRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if(!username && !password) {
+    if(username !== "" && password !== "") {
       setButtonDisabled(false)
     }
   },[password, username]);
