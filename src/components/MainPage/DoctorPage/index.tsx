@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React,{ useState } from "react";
 
-import phone from "../../assets/images/phone.png"
-import logo from "../../assets/images/logo.png"
-import doctor1 from "../../assets/images/doctor1.png"
-import patient from "../../assets/images/patient.png"
-import useStyles from "./style.jss";
+import useStyles from ".././DoctorPage/style.jss";
+import phone from "../../../assets/images/phone.png";
+import logo from "../../../assets/images/logo.png";
+import doctor from "../../../assets/images/doctor.png";
 
 type HomePageState = "default" | "doctor-page" | "page-patient";
 
-export const MainPageMedicine: React.FC = () =>  {
-  const [page, setPage] = useState<HomePageState>("default");
+export const MainPageDoctor: React.FC = () =>  {
   const classes = useStyles();
-  return( 
+  const [page, setPage] = useState<HomePageState>("doctor-page");
+  return (
     <div className={classes.root}>
-      {page === "default" && (
+      {page === "doctor-page" && (
         <div className={classes.blockMain}>
           <div className={classes.navbarBox}>
             <p className={classes.navbarAdmin}>Административная штука</p>
@@ -40,27 +39,21 @@ export const MainPageMedicine: React.FC = () =>  {
             </div>
           </div>
           <div className={classes.wrapBox}>
-            <div className={classes.boxDoctor}>
-              <div>
-                <img src={doctor1}/>
-              </div>
-              <button className={`${classes.boxBtn} ${classes.btnDoctor}`}
-                onClick={() => setPage("doctor-page")}>
-                Войти как <br></br> медицинский сотрудник
-              </button>
-            </div>
-            <div className={classes.boxPatient}>
-              <div>
-                <img src={patient}/>
-              </div>
-              <button className={`${classes.boxBtn} ${classes.btnPatient}`} 
-                onClick={() => setPage("page-patient")}>
-                Войти как пациент
-              </button>
+            <form>
+              <input type="text" name="name">ID Пользователь</input>
+              <input type="password">Пароль</input>
+              <button>Вход</button>
+            </form>
+            <button className={`${classes.boxBtn} ${classes.btnDoctor}`}
+              onClick={() => setPage("default")}>
+              Перейти на главную страницу
+            </button>
+            <div>
+              <img src={doctor} />
             </div>
           </div>
         </div>
       )};
-    </div>
+    </div> 
   );
 };
