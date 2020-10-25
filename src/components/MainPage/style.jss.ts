@@ -108,8 +108,8 @@ const styles = (theme: Theme) => ({
   wrapBox: {
     display: 'flex',
     width: '840px',
-    margin: 'auto',
-    paddingTop: '70px',
+    margin: '45px auto',
+    alignItems: "center",
     justifyContent: "space-between"
   },
 
@@ -143,6 +143,54 @@ const styles = (theme: Theme) => ({
 
   btnDoctor: {
     padding: '13px 50px',
+  },
+
+  boxPhoto: {
+    width: "400px",
+    height: "420px",
+  },
+
+  photoDoctor: {
+    width: "100%",
+    height: "100%",
+  },
+
+  photoPatient: {
+    width: "100%",
+    height: "100%",
+  },
+
+  formBox: {
+    width: "255px",
+    height: "209px",
+  },
+
+  fieldInput: {
+    width: "250px",
+    padding: "14px 23px",
+    fontSize: "16px",
+    fontWeight: "400",
+    border: "1px solid #fff",
+    borderRadius: "30px",
+  },
+
+  userPassword: {
+    marginTop: "28px",
+    marginBottom: "40px",
+  },
+
+  btnLog: {
+    width: "185px",
+    padding:"13px 72px",
+    backgroundColor: "#ffa940",
+    color: "#fff",
+    border: "1px solid #ffa940",
+    borderRadius: "20px",
+    fontSize: "18px",
+    fontWeight: "400",
+    cursor: "pointer",
+    outline: "none",
+    float: "left",
   },
 });
 

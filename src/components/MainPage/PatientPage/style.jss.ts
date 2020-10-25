@@ -129,12 +129,12 @@ const styles = (theme: Theme) => ({
     padding: '13px 50px',
   },
 
-   boxPhoto: {
+  boxPhoto: {
     width: "400px",
     height: "420px",
   },
 
-  photoDoctor: {
+  photoPatient: {
     width: "100%",
     height: "100%",
   },
@@ -173,4 +173,4 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default createUseStyles<Theme, keyof ReturnType<typeof styles>>(styles, { name: "MainPageDoctor" });
+export default createUseStyles<Theme, keyof ReturnType<typeof styles>>(styles, { name: "MainPagePatient" });

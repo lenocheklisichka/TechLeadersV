@@ -1,13 +1,13 @@
 import React from "react";
 
-import useStyles from ".././DoctorPage/style.jss";
+import useStyles from "../PatientPage/style.jss";
 import phone from "../../../assets/images/phone.png";
 import logo from "../../../assets/images/logo.png";
-import doctor from "../../../assets/images/doctor.png";
+import patient from "../../../assets/images/petient.png";
 
-export const MainPageDoctor: React.FC = () =>  {
+export const MainPagePatient: React.FC = () => {
   const classes = useStyles();
-  return (
+  return(
     <div className={classes.root}>
       <div className={classes.blockMain}>
         <div className={classes.navbarBox}>
@@ -42,10 +42,10 @@ export const MainPageDoctor: React.FC = () =>  {
             <button className={classes.btnLog}>Вход</button>
           </form>
           <div className={classes.boxPhoto}>
-            <img  className={classes.photoDoctor} src={doctor} />
+            <img  className={classes.photoPatient} src={patient} />
           </div>
         </div>
       </div>
-    </div> 
-  );
-};
+    </div>
+  )
+}

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-import phone from "../../assets/images/phone.png"
-import logo from "../../assets/images/logo.png"
-import doctor1 from "../../assets/images/doctor1.png"
-import patient from "../../assets/images/patient.png"
+import phone from "../../assets/images/phone.png";
+import logo from "../../assets/images/logo.png";
+import doctor1 from "../../assets/images/doctor1.png";
+import patient from "../../assets/images/patient.png";
+import doctor from "../../assets/images/doctor.png";
 import useStyles from "./style.jss";
 
 type HomePageState = "default" | "doctor-page" | "page-patient";
@@ -13,10 +14,9 @@ export const MainPageMedicine: React.FC = () =>  {
   const classes = useStyles();
   return( 
     <div className={classes.root}>
-      {page === "default" && (
-        <div className={classes.blockMain}>
-          <div className={classes.navbarBox}>
-            <p className={classes.navbarAdmin}>Административная штука</p>
+      <div className={classes.blockMain}>
+        <div className={classes.navbarBox}>
+          <p className={classes.navbarAdmin}>Административная штука</p>
             <div className={classes.navbarBoxPhone}>
               <div className={classes.boxPhone}>
                 <p className={classes.navPhone}>8 800 123 45 67</p>
@@ -26,19 +26,20 @@ export const MainPageMedicine: React.FC = () =>  {
                 <img src={phone}/>
               </div>
             </div>
-          </div>
-          <div className={classes.boxMedicalServices}>
-            <div className={classes.boxLogo}>
-              <div>
-                <img src={logo}/>
-              </div>
+        </div>
+        <div className={classes.boxMedicalServices}>
+          <div className={classes.boxLogo}>
+            <div>
+              <img src={logo}/>
+            </div>
               <p className={classes.stateMed}>госмед</p>
-            </div>
-            <div className={classes.boxMedicine}>
-              <p className={classes.publicMedicine}>Государственная медицина</p>
-              <p className={classes.medicalPortal}>портал для медицинских услуг Российской федирации</p>
-            </div>
           </div>
+          <div className={classes.boxMedicine}>
+            <p className={classes.publicMedicine}>Государственная медицина</p>
+            <p className={classes.medicalPortal}>портал для медицинских услуг Российской федирации</p>
+          </div>
+        </div>
+        {page === "default" && (
           <div className={classes.wrapBox}>
             <div className={classes.boxDoctor}>
               <div>
@@ -59,8 +60,34 @@ export const MainPageMedicine: React.FC = () =>  {
               </button>
             </div>
           </div>
-        </div>
-      )};
+        )}
+        {page === "doctor-page" && (
+          <div className={classes.wrapBox}>
+            <form className={classes.formBox}>
+              <input type="text" value="ID Пользователь" className={classes.fieldInput}/>
+              <input type="text" value="Пароль" 
+               className={`${classes.fieldInput} ${classes.userPassword}`}/>
+              <button className={classes.btnLog}>Вход</button>
+            </form>
+            <div className={classes.boxPhoto}>
+              <img className={classes.photoDoctor} src={doctor} />
+            </div>
+          </div>
+        )}
+        {page === "page-patient" && (
+          <div className={classes.wrapBox}>
+            <form className={classes.formBox}>
+              <input type="text" value="ID Пользователь" className={classes.fieldInput}/>
+              <input type="text" value="Пароль" 
+               className={`${classes.fieldInput} ${classes.userPassword}`}/>
+              <button className={classes.btnLog}>Вход</button>
+            </form>
+            <div className={classes.boxPhoto}>
+              <img className={classes.photoPatient} src={patient} />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-  );
-};
+  )
+}
