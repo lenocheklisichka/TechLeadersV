@@ -24,77 +24,129 @@ const styles = (theme: Theme) => ({
     backgroundRepeat: 'no-repeat',
     width: "100%",
     height: "100vh",
-    backgroundPosition: "center",
+    backgroundSize: "cover",
+    
+    [theme.mediaRequests.desktop] : {
+      paddingLeft: "20px",
+      paddingRight: "20px",
+    }
+  },
+
+  innerBox: {
+    width: "100%",
+    maxWidth: "1140px",
+    margin: "0 auto",
   },
 
   navbarBox: {
     display: 'flex',
     paddingTop: '50px',
     justifyContent: 'space-between',
-    width: '1100px',
+    width: '100%',
+    maxWidth: '1140px',
     margin: 'auto',
+    [theme.mediaRequests.notDesktop] : {
+      width: "100%",
+      maxWidth: "700px",
+      paddingLeft: "10px",
+      paddingRight: "10px",
+    },
   },
 
   navbarAdmin: {
     fontSize: '14px',
     fontWeight:'400',
     color: '#fff',
+    [theme.mediaRequests.mobile] : {
+      display: "none",
+    },
   },
 
   navbarBoxPhone: {
     display: 'flex',
+    [theme.mediaRequests.mobile] : {
+      position: "absolute",
+      left: "60%",
+    }
   },
 
   boxPhone: {
-    paddingRight: '10px',
+    paddingRight: "10px",
+    [theme.mediaRequests.mobile] : {
+      paddingRight: "0",
+    }
   },
 
   navPhone: {
     color: '#fff',
     fontSize: '18px',
+    [theme.mediaRequests.mobile] : {
+      fontSize: "2.5vw"
+    }
   },
 
   navDirectory: {
-     color: '#fff',
-     fontSize: '14px',
-     margin: '0',
+    color: '#fff',
+    fontSize: '14px',
+    margin: '0',
+    [theme.mediaRequests.mobile] : {
+       fontSize: "2vw",
+    }
   },
 
-  imagePhone: {
-    paddingLeft: '10px',
+  imgPhone: {
+     width: "4vw",
   },
 
   boxMedicalServices: {
+    width: "65vw",
     display: 'flex',
-    width: '900px',
     justifyContent: 'space-around',
-    margin: 'auto',
-    paddingTop: "50px",
+    margin: '50px auto 60px',
+    [theme.mediaRequests.notDesktop]: {
+      width: "80vw",
+    },
   },
 
   boxLogo: {
     display: 'flex',
+    [theme.mediaRequests.mobile] : {
+      justifyContent: "center",
+      flexDirection: "column",
+      position: 'absolute',
+      left: "5%",
+      top: "5%",
+    }
+  },
+
+  imgLogo: {
+    width: "10vw",
   },
 
   stateMed: {
+    alignItems:"center",
     textTransform: 'uppercase',
     color: '#ffa940',
-    fontSize: '46px',
+    fontSize: '3.4vw',
     fontWeight: '600',
-    fontFamily: 'Montserrat, sans-serif',
     paddingLeft: '10px',
   },
 
   publicMedicine: {
-    width: '230px',
+    width: '18vw',
     textTransform: 'uppercase',
     fontSize: '18px',
     fontWeight: '500',
     color: '#fff',
+    [theme.mediaRequests.tablet]: {
+      width: '29vw',
+    },
+    [theme.mediaRequests.mobile]: {
+      textAlign: 'center',
+    } as any
   },
 
   medicalPortal: {
-    width: '380px',
     fontSize: '14px',
     color: '#fff',
   },
@@ -103,14 +155,36 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'left',
+    width: "29vw",
+    [theme.mediaRequests.tablet]: {
+      display: "none",
+    },
+    [theme.mediaRequests.notDesktop]: {
+      display: "none",
+    },
+    [theme.mediaRequests.mobile]: {
+      display: "none",
+    } as any
   },
 
   wrapBox: {
     display: 'flex',
-    width: '840px',
-    margin: '45px auto',
+    width: '60vw',
+    margin: 'auto',
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    [theme.mediaRequests.notDesktop] : {
+      width: "65vw",
+    },
+    [theme.mediaRequests.mobile] : {
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+    } as any
+  }, 
+
+  imgBlock: {
+    width: "17vw",
   },
 
   boxDoctor: {
@@ -121,56 +195,72 @@ const styles = (theme: Theme) => ({
   boxPatient: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    [theme.mediaRequests.mobile] : {
+      paddingTop: "40px",
+    }
   },
 
   boxBtn: {
-    width: '300px',
     backgroundColor: '#ffa940',
     color: '#fff',
     fontSize: '17px',
     fontWeight: '400',
-    border: '1px solid #ffa940',
+    border: "0",
     borderRadius: '50px',
-    marginTop: '50px',
+    marginTop: '2vw',
     cursor: 'pointer',
     outline: 'none',
+    [theme.mediaRequests.tablet] : {
+      fontSize: "15px",
+    },
+    [theme.mediaRequests.mobile] : {
+      fontSize: "13px",
+    },
   },
 
   btnPatient: {
-    padding: '23px 70px',
+    padding: "23px 70px",
+    [theme.mediaRequests.tablet] : {
+      padding: "20px 17px",
+    },
+    [theme.mediaRequests.mobile] : {
+      padding: "10px 12px",
+    },
   },
 
   btnDoctor: {
-    padding: '13px 50px',
-  },
-
-  boxPhoto: {
-    width: "400px",
-    height: "420px",
+    padding: "13px 50px",
+    [theme.mediaRequests.tablet] : {
+     padding: "10px 15px",
+    },
+    [theme.mediaRequests.mobile] : {
+     padding: "8px 10px",
+    },
   },
 
   photoDoctor: {
-    width: "100%",
-    height: "100%",
+    width: "25vw",
+    height: "25vw",
   },
 
   photoPatient: {
-    width: "100%",
-    height: "100%",
+    width: "25vw",
+    height: "25vw",
   },
 
   formBox: {
-    width: "255px",
-    height: "209px",
+    width: "22vw",
+    [theme.mediaRequests.mobile] : {
+      marginTop: "30px",
+      width: "35vw",
+    },
   },
 
   fieldInput: {
-    width: "250px",
     padding: "14px 23px",
     fontSize: "16px",
     fontWeight: "400",
-    border: "1px solid #fff",
+    border: "0",
     borderRadius: "30px",
   },
 
@@ -180,17 +270,15 @@ const styles = (theme: Theme) => ({
   },
 
   btnLog: {
-    width: "185px",
     padding:"13px 72px",
     backgroundColor: "#ffa940",
     color: "#fff",
-    border: "1px solid #ffa940",
-    borderRadius: "20px",
+    border: "0",
+    borderRadius: "30px",
     fontSize: "18px",
     fontWeight: "400",
     cursor: "pointer",
     outline: "none",
-    float: "left",
   },
 });
 

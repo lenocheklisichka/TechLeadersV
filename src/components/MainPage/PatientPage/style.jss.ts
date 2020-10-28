@@ -27,11 +27,18 @@ const styles = (theme: Theme) => ({
     backgroundPosition: "center",
   },
 
+  innerBox: {
+    width: "100%",
+    maxWidth: "1140px",
+    margin: "0 auto",
+  },
+
   navbarBox: {
     display: 'flex',
     paddingTop: '50px',
     justifyContent: 'space-between',
-    width: '1100px',
+    width: '100%',
+    maxWidth: '1140px',
     margin: 'auto',
   },
 
@@ -60,8 +67,8 @@ const styles = (theme: Theme) => ({
     margin: '0',
   },
 
-  imagePhone: {
-    paddingLeft: '10px',
+  imgPhone: {
+    width: "6vw",
   },
 
   boxMedicalServices: {
@@ -74,6 +81,10 @@ const styles = (theme: Theme) => ({
 
   boxLogo: {
     display: 'flex',
+  },
+  
+  imgLogo: {
+    width: "10vw",
   },
 
   stateMed: {
@@ -105,20 +116,19 @@ const styles = (theme: Theme) => ({
   },
 
   wrapBox: {
-    width: "846px",
+    width: "840px",
     display: "flex",
-    margin: "45px auto",
+    margin: "70px auto 0",
     alignItems: "center",
     justifyContent: "space-between",
   },
 
   boxBtn: {
-    width: '300px',
     backgroundColor: '#ffa940',
     color: '#fff',
     fontSize: '17px',
     fontWeight: '400',
-    border: '1px solid #ffa940',
+    border: '0',
     borderRadius: '50px',
     marginTop: '50px',
     cursor: 'pointer',
@@ -129,23 +139,17 @@ const styles = (theme: Theme) => ({
     padding: '13px 50px',
   },
 
-  boxPhoto: {
-    width: "400px",
-    height: "420px",
-  },
-
   photoPatient: {
-    width: "100%",
-    height: "100%",
+    width: "25vw",
+    height: "25vw",
   },
 
   formBox: {
-    width: "255px",
-    height: "209px",
+    width: "22vw",
   },
 
   fieldInput: {
-    width: "250px",
+    width: "25vw",
     padding: "14px 23px",
     fontSize: "16px",
     fontWeight: "400",
@@ -159,11 +163,10 @@ const styles = (theme: Theme) => ({
   },
 
   btnLog: {
-    width: "185px",
     padding:"13px 72px",
     backgroundColor: "#ffa940",
     color: "#fff",
-    border: "1px solid #ffa940",
+    border: "0",
     borderRadius: "20px",
     fontSize: "18px",
     fontWeight: "400",
